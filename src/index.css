@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.f-login-align-right {
+  float: right;
+  margin-top: 5px;
+  margin-right: 20px;
+  display: inline-block;
+}
+.f-login-forget {
+  font-size: 15px;
+  float: right;
+  text-align: right;
+  height: 30px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.f-forget-password {
+  font-size: 15px;
+  margin: 0 0 60px 0;
+  text-align: right;
+}
+.f-float-left {
+  display: inline-block;
+  float: left;
+}
+.f-float-right {
+  display: inline-block;
+  float: right;
+}
+.f-register-restaurant-title {
+  padding-top: 28px;
+  padding-bottom: 8px;
+  font-weight: bold;
+  color: #d9230f;
+}
+.f-register-form-container {
+  margin-top: 120px !important;
+}
+.f-register-form-border {
+  padding: 30px 20px 50px 20px;
+  border-radius: 5px;
+  border: solid lightgrey 1pt;
+}
+.f-register-form-title {
+  font-size: 20px;
+  color: white;
+}
+.f-register-submit {
+  width: 100%;
+  color: black;
+}
+.f-form-border {
+  border: solid 1pt darkgray !important;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+.f-login-form {
+  margin-bottom: 30px;
+}
+.wd-customer-bg-img{
+  width:480px;
+  height:400px;
+  border-radius: 50%;
+}
+.f-align-left {
+  float: left;
+  padding-left: 50px;
+  padding-top: 5px;
+  display: inline-block;
+}
+.f-location-fix {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  height: 45px;
+  z-index: 2;
+}
+.f-topbar-occupy {
+  height: 45px;
+  background-color: white;
+  z-index: 2;
+}
+.dropdown-menu {
+  border-radius: 0 !important;
+}
+.dropdown-item {
+  border-radius: 0 !important;
+}
+.profile-layout {
+  padding: 50px;
+}
+.wd-profile-avatar {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  position: relative;
+}
+.wd-icon-text-font{
+  font-size:15px;
+  color: #3c3b3b;
+}
+.f-logo{
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 22px;
+}
+.f-login-align-right {
+  float: right;
+  margin-top: 5px;
+  margin-right: 20px;
+  display: inline-block;
+}
+.f-location-fix {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  height: 45px;
+  z-index: 2;
+}
+.f-topbar-occupy {
+  height: 45px;
+  background-color: white;
+  z-index: 2;
+}
