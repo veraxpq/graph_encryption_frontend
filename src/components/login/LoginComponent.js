@@ -29,7 +29,7 @@ const LoginComponent = () => {
         } else {
             localStorage.setItem('userId',user.data.id);
             localStorage.setItem('token',user.data.token);
-            navigate(`/profile`);
+            navigate(`/home`);
         }
     }
 
