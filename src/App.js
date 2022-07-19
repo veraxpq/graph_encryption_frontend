@@ -21,7 +21,7 @@ function App() {
             <Routes>
                 <Route path={"/register"} element={<Register/>}/>
                 <Route exact path={"/login"} element={<Login/>}/>
-                <Route path={"/"} element={<Homepage/>}/>
+                <Route path={"/home"} element={<Homepage/>}/>
                 <Route path={"/profile"} element={<PersonalProfileScreen/>}/>
             </Routes>
         </BrowserRouter>
