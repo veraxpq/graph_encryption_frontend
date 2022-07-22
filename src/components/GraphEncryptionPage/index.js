@@ -21,6 +21,7 @@ const GraphEncryptionPage = () => {
     const passwordInputRef = useRef();
 
     const encryptSubmit = (e) => {
+
         e.preventDefault();
 
         const message = messageInputRef.current.value;
