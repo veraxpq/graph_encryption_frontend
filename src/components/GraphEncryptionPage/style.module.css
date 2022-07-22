@@ -50,3 +50,34 @@
 .encrypt_form {
     padding: 0 10px;
 }
+
+.button_test {
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-content: center;
+    background-color: #20B2AA;
+    height: 35px;
+    width: 110px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 6px;
+}
+
+.title {
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    font-size: 90px;
+    height: 60px;
+    font-weight: 50;
+    color: black;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    padding-top: 20px;
+}
+.home {
+    background-color: #f4fafa;
+    height: 100%;
+}
