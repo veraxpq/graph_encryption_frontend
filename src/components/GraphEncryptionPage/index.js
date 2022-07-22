@@ -48,9 +48,7 @@ const GraphEncryptionPage = () => {
         console.log('opened');
     }
     return <div
-        className={styles.home}
-        // style={{ backgroundImage: `url(${BannerImage})` }}
-    >
+        className={styles.home}>
         <div className = {styles.title}>
             <h1>Graph Encryption</h1>
         </div>
