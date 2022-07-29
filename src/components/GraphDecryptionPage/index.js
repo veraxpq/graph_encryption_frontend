@@ -45,7 +45,7 @@ const GraphDecryptionPage = () => {
     const afterOpenModal = () => {
         console.log('opened');
     }
-    return <div  className={styles.home}>
+    return <div className={styles.home}>
         <div>
             <h1>Graph Decryption</h1>
         </div>
@@ -63,23 +63,28 @@ const GraphDecryptionPage = () => {
                 <h3>Original Picture</h3>
                 <div className={styles.picture_wrapper}>
                     {uploadedGraphUrl &&
-                    <img
-                        src={uploadedGraphUrl}
-                    alt={`uploaded graph`}/> }
+                        <img
+                            src={uploadedGraphUrl}
+                            alt={`uploaded graph`}/>}
                 </div>
             </div>
         </div>
         <div className={styles.buttons_wrapper}>
             <div>
                 <form onSubmit={uploadGraphFile}>
-                    <input id={`graph_file`} type={`file`} name={`graph_file`}/>
+                    <input
+                        id={`graph_file`}
+                        type={`file`}
+                        name={`graph_file`}
+                    />
                     <button type={`submit`} className={styles.button_test}>Upload</button>
                 </form>
             </div>
             <div>
                 <button
                     onClick={setIsOpen.bind(null, true)}
-                className= {styles.button_test}>Decrypt</button>
+                    className={styles.button_test}>Decrypt
+                </button>
             </div>
             <div>
                 <button>Download</button>
@@ -103,7 +108,7 @@ const GraphDecryptionPage = () => {
             <div>
                 <form
                     onSubmit={decryptSubmit}
-                className={styles.encrypt_form}>
+                    className={styles.encrypt_form}>
                     <div>
                         <div>
                             <label htmlFor="{`password`}">password</label>
