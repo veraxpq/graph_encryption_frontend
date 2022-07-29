@@ -27,9 +27,9 @@ function App() {
             <BaseFrame>
                 <Routes>
                     <Route path={"/home"} element={<Dashboard/>}/>
-                    <Route path={"/home/encrypt"} element={<GraphEncryptionPage />}/>
-                    <Route path={"/home/decrypt"} element={<GraphDecryptionPage />}/>
-                    <Route path={"/home/graph-list"} element={<GraphListPage />}/>
+                    <Route path={"/home/encrypt"} element={<Dashboard><GraphEncryptionPage /></Dashboard>}/>
+                    <Route path={"/home/decrypt"} element={<Dashboard><GraphDecryptionPage /></Dashboard>}/>
+                    <Route path={"/home/graph-list"} element={<Dashboard><GraphListPage /></Dashboard>}/>
                     <Route path={"/register"} element={<Register/>}/>
                     <Route exact path={"/login"} element={<Login/>}/>
                     <Route path={"/"} element={<Homepage/>}/>
