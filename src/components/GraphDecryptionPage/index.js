@@ -1,6 +1,8 @@
 import styles from './style.module.css';
 import {useRef, useState} from "react";
 import Modal from 'react-modal';
+import {uploadImageToImgur} from "../../services/imageUpload";
+import {getDecryptedGraph} from "../../services/graphService";
 
 const customStyles = {
     content: {
@@ -18,28 +20,44 @@ const GraphDecryptionPage = () => {
     const [encryptedGraphUrl, setEncryptedGraphUrl] = useState();
     const [message, setMessage] = useState();
     const [modalIsOpen, setIsOpen] = useState(false);
+    const fileUploadInputRef = useRef();
     const passwordInputRef = useRef();
+    const imageIdInputRef = useRef();
 
-    const decryptSubmit = (e) => {
+    const userToken = localStorage.getItem("token");
+
+    const decryptSubmit = async (e) => {
         e.preventDefault();
 
         const password = passwordInputRef.current.value;
 
         // 传给后端处理
-        console.log({
-            password: password,
-        });
-
+        const {data} = await getDecryptedGraph(
+            encryptedGraphUrl,
+            password,
+            userToken);
         setIsOpen(false);
 
-        setUploadedGraphUrl('https://images.unsplash.com/photo-1657804023799-3fa26a120cc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80')
-        setMessage('Message decrypted');
+        const message = data.message;
+
+        // setUploadedGraphUrl('https://images.unsplash.com/photo-1657804023799-3fa26a120cc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80')
+        setMessage(message);
     }
 
-    const uploadGraphFile = (e) => {
+    const uploadGraphFile = async (e) => {
         e.preventDefault();
         //传给后端文件
-        setEncryptedGraphUrl(`https://images.unsplash.com/photo-1657998623411-15c39b03080a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80`)
+        try {
+            const file = fileUploadInputRef.current.files[0];
+
+            const formData = new FormData();
+            formData.append("image", file);
+            const {data} = await uploadImageToImgur(formData);
+
+            setEncryptedGraphUrl(data.link);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     const afterOpenModal = () => {
@@ -76,6 +94,7 @@ const GraphDecryptionPage = () => {
                         id={`graph_file`}
                         type={`file`}
                         name={`graph_file`}
+                        ref={fileUploadInputRef}
                     />
                     <button type={`submit`} className={styles.button_test}>Upload</button>
                 </form>

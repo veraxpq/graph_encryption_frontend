@@ -2,6 +2,7 @@ import styles from './style.module.css';
 import {useRef, useState} from "react";
 import Modal from 'react-modal';
 import {uploadImageToImgur} from "../../services/imageUpload";
+import {getEncryptedGraph} from "../../services/graphService";
 
 const customStyles = {
     content: {
@@ -17,7 +18,9 @@ const GraphEncryptionPage = () => {
     const messageInputRef = useRef();
     const passwordInputRef = useRef();
 
-    const encryptSubmit = (e) => {
+    const userToken = localStorage.getItem("token");
+
+    const encryptSubmit = async (e) => {
 
         e.preventDefault();
 
@@ -25,19 +28,21 @@ const GraphEncryptionPage = () => {
         const password = passwordInputRef.current.value;
 
         // 传给后端处理
-        console.log({
-            message: message, password: password,
-        });
+        try {
+            const {data} = await getEncryptedGraph(
+                uploadedGraphUrl,
+                message,
+                password,
+                userToken);
+            setEncryptedGraphUrl(data.encrypted_image_url);
+        } catch (e) {
+            console.error(e);
+        }
 
         setIsOpen(false);
-
-        setEncryptedGraphUrl('https://images.unsplash.com/photo-1657804023799-3fa26a120cc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80')
     }
 
     const uploadGraphFile = async (e) => {
-
-        setUploadedGraphUrl('https://i.imgur.com/J68y0d4.jpg');
-
         e.preventDefault();
 
         try {
@@ -47,6 +52,7 @@ const GraphEncryptionPage = () => {
             formData.append("image", file);
             const {data} = await uploadImageToImgur(formData);
 
+            setUploadedGraphUrl(data.link);
         } catch (e) {
             console.error(e);
         }

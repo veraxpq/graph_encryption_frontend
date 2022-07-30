@@ -1,7 +1,17 @@
-
-import {graphs} from "../../constant/mockData";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {fetchAllImages} from "../../services/graphService";
 
 const GraphListPage = () => {
+    const userId = localStorage.getItem("userId");
+    const userToken = localStorage.getItem("token");
+    const dispatch = useDispatch();
+
+    const {graphs} = useSelector(state => state.ImagesInfo);
+
+    useEffect(() => {
+        fetchAllImages(dispatch, userId, userToken);
+    }, [])
 
     return <div>
         <div>
@@ -11,7 +21,8 @@ const GraphListPage = () => {
             <thead>
             <tr>
                 <td>Date</td>
-                <td>Url</td>
+                <td>Origin Url</td>
+                <td>Encrypted Url</td>
                 <td></td>
             </tr>
             </thead>
@@ -19,8 +30,11 @@ const GraphListPage = () => {
             {graphs.map((graph, index) => (
                 <tr key={index}>
                     <td>{graph.date}</td>
-                    <td>{graph.link}</td>
-                    <td><button>download</button></td>
+                    <td>{graph.originalImageUrl}</td>
+                    <td>{graph.encryptedImageUrl}</td>
+                    <td>
+                        <button>download</button>
+                    </td>
                 </tr>
             ))}
             </tbody>

@@ -1,4 +1,4 @@
-const GRAPH_API = 'localhost:18081/en-graph';
+const GRAPH_API = 'http://localhost:18081/en-graph';
 
 export const getEncryptedGraph = async (graphUrl, message, password, token) => {
     const response = await fetch(`${GRAPH_API}/encrypt`, {
@@ -33,18 +33,18 @@ export const getDecryptedGraph = async (graphUrl, password, token) => {
     return await response.json();
 }
 
-export const fetchAllPersonalProfile = (dispatch, id, token) =>
-    fetch(`${PROFILE_API}?id=${id}`, {
-        method: 'GET',
-        headers: {
-            'content-type': 'application/json',
-            'authorization': `${token}`
-        }
-    })
-        .then(response => response.json())
-        .then(PersonalProfile => {
-            dispatch({
-                type: 'fetch-all-personal-profile',
-                PersonalProfile
-            })
-        });
+export const fetchAllImages = async (dispatch, userId, token) => {
+    const response = await fetch(`${GRAPH_API}/getImageList?userId=${userId}`,
+        {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': token,
+            },
+        })
+
+    const respJson = await response.json();
+    dispatch({
+        type: 'update-images',
+        payload: respJson.data,
+    });
+}

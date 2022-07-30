@@ -10,6 +10,7 @@ import {combineReducers, createStore} from "redux";
 import userInfo from "./reducers/user";
 import Homepage from "./components/homepage";
 import personalProfile from "./reducers/personalProfile";
+import ImagesInfo from "./reducers/images";
 import PersonalProfileScreen from "./components/PersonalProfileScreen";
 import Dashboard from "./components/Dashboard";
 import BaseFrame from "./components/BaseFrame";
@@ -18,7 +19,7 @@ import GraphDecryptionPage from "./components/GraphDecryptionPage";
 import GraphListPage from "./components/GraphListPage";
 
 function App() {
-    const reducer = combineReducers({userInfo, personalProfile})
+    const reducer = combineReducers({userInfo, personalProfile, ImagesInfo})
     const store = createStore(reducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
     return (
