@@ -1,41 +1,46 @@
-import data from "bootstrap/js/src/dom/data";
-
 const PROFILE_API = 'http://localhost:18081/en-graph/user';
+const LOGIN_API = "http://localhost:18081/en-graph/login";
 
 
-export const fetchAllPersonalProfile = (dispatch, id,token) =>
-    fetch(`${PROFILE_API}?id=${id}`, {
+export const fetchAllPersonalProfile = async (dispatch, id, token) => {
+    const response = await fetch(`${PROFILE_API}?id=${id}`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json',
-            'authorization':`${token}`
+            'authorization': token
         }
-    })
-        .then(response => response.json())
-        .then(PersonalProfile => {
-            dispatch({
-                type: 'fetch-all-personal-profile',
-                PersonalProfile
-            })
-        });
+    });
 
-export const updateCurrentPersonalProfile = (dispatch, PersonalProfile,token) => {
-    console.log(PersonalProfile)
-    fetch(PROFILE_API, {
-        // mode: 'no-cors',
+    const profile = await response.json();
+    dispatch({
+        type: 'fetch-all-personal-profile',
+        profile
+    });
+}
+
+export const updateCurrentPersonalProfile = async (dispatch, PersonalProfile, token) => {
+    const response = await fetch(PROFILE_API, {
         method: 'PUT',
         body: JSON.stringify(PersonalProfile),
         headers: {
             'content-type': 'application/json',
-            'authorization':`${token}`
+            'authorization': `${token}`
         }
-    })  .then(response => response.json())
-        .then(PersonalProfile => {
-            console.log(PersonalProfile)
-            dispatch({
-                type: 'update-personal-profile',
-                PersonalProfile
-            })
-            alert("Update successfully");
-        });
+    });
+
+    const profile = await response.json();
+    dispatch({
+        type: 'update-personal-profile',
+        profile
+    })
+    alert("Update successfully");
+}
+
+export const loginWithCredential = async (email, password) => {
+    const response = await fetch(`${LOGIN_API}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, password})
+    });
+    return await response.json();
 }
