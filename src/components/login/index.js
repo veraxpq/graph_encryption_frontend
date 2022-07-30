@@ -1,6 +1,5 @@
 import React from "react";
 import LoginComponent from "./LoginComponent";
-import TopBar from "../topBar";
 import {useNavigate} from "react-router-dom";
 
 const Login = () => {
@@ -12,7 +11,6 @@ const Login = () => {
 
     return (
         <>
-            <TopBar/>
             <LoginComponent/>
         </>
     )

@@ -1,0 +1,82 @@
+.pictures_container {
+    display: flex;
+}
+
+.picture_item {
+    width: 50%;
+    padding: 15px;
+    text-align: center;
+}
+
+.picture_title {
+}
+
+.picture_wrapper {
+    border: 1px solid black;
+    height: 50vh;
+    position: relative;
+}
+
+.picture_wrapper img {
+    object-fit: contain;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+.buttons_wrapper {
+    display: flex;
+    padding: 0 15px;
+}
+
+.buttons_wrapper > *:last-child {
+    margin-left: auto;
+}
+
+.output_wrapper {
+    margin: 10px 0;
+    padding: 0 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.output_result {
+    border: solid 1px black;
+    width: 200px;
+    height: 100%;
+}
+
+.encrypt_form {
+    padding: 0 10px;
+}
+.button_test {
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-content: center;
+    background-color: #20B2AA;
+    height: 35px;
+    width: 110px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 6px;
+}
+
+.title {
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    font-size: 90px;
+    height: 60px;
+    font-weight: 50;
+    color: black;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    padding-top: 20px;
+}
+.home {
+    background-color: #f4fafa;
+    height: 100%;
+}

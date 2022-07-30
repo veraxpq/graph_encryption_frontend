@@ -1,19 +1,19 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 .f-login-align-right {
   float: right;
   margin-top: 5px;
-  margin-right: 20px;
+  margin-right: 50px;
   display: inline-block;
 }
 .f-login-forget {
@@ -80,15 +80,18 @@ code {
 }
 .f-location-fix {
   position: fixed;
-  top: 0;
+  top: 10px;
   width: 100%;
-  background-color: white;
-  height: 45px;
+  /*background-color: white;*/
+  background-color:  #20B2AA;
+
+  height: 50px;
   z-index: 2;
 }
 .f-topbar-occupy {
-  height: 45px;
-  background-color: white;
+  height: 50px;
+  /*background-color: white;*/
+  background-color:  #20B2AA;
   z-index: 2;
 }
 .dropdown-menu {
@@ -114,23 +117,12 @@ code {
   font-weight: bold;
   text-decoration: none;
   font-size: 22px;
+  color:white;
 }
-.f-login-align-right {
-  float: right;
-  margin-top: 5px;
-  margin-right: 20px;
-  display: inline-block;
-}
-.f-location-fix {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: white;
-  height: 45px;
-  z-index: 2;
-}
-.f-topbar-occupy {
-  height: 45px;
-  background-color: white;
-  z-index: 2;
+.navbar-login{
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
 }
