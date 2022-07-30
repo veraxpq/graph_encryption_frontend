@@ -13,7 +13,7 @@ const RegisterForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    function register(e){
+    function register(e) {
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Please input the same passwords in the form.")
@@ -70,7 +70,7 @@ const RegisterForm = () => {
                             <legend className={"f-login-form"}>Sign up</legend>
                             <div className="form-group">
                                 <label htmlFor="staticEmail" className="form-label mt-4">Email</label>
-                                <input type="text"  className="form-control f-form-border" id="staticEmail"
+                                <input type="text" className="form-control f-form-border" id="staticEmail"
                                        value={email} onChange={e => setEmail(e.target.value)}/>
                                 <label htmlFor="phone" className="col-form-label">Phone</label>
                                 <input type="text" readOnly="" className="form-control f-form-border" id="phone"
@@ -79,11 +79,13 @@ const RegisterForm = () => {
                                 <input type="password" readOnly="" className="form-control f-form-border" id="password"
                                        value={password} onChange={e => setPassword(e.target.value)}/>
                                 <label htmlFor="confirmPassword" className="col-form-label">Confirm Password</label>
-                                <input type="password" readOnly="" className="form-control f-form-border" id="confirmPassword"
+                                <input type="password" readOnly="" className="form-control f-form-border"
+                                       id="confirmPassword"
                                        value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}/>
                             </div>
                             <div className={"mt-5"}>Already have an account? <Link to={"/login"}>Login</Link></div>
-                            <Link to={"/login"} type="submit" className="btn btn-primary f-register-submit mt-2" onClick={register}>Submit</Link>
+                            <Link to={"/login"} type="submit" className="btn btn-primary f-register-submit mt-2"
+                                  onClick={register}>Submit</Link>
                         </fieldset>
                     </form>
                 </div>
