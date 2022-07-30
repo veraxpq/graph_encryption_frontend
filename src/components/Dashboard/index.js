@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import styles from './style.module.css';
 
 
-const Dashboard = () => {
+const Dashboard = ({children}) => {
     return (
         <>
             <div className={styles.sidebar}>
@@ -24,6 +24,9 @@ const Dashboard = () => {
                     </li>
 
                 </ul>
+            </div>
+            <div className={styles.content}>
+                {children}
             </div>
 
         </>

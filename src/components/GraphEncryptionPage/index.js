@@ -1,15 +1,12 @@
 import styles from './style.module.css';
 import {useRef, useState} from "react";
 import Modal from 'react-modal';
+import {uploadImageToImgur} from "../../services/imageUpload";
+import {getEncryptedGraph} from "../../services/graphService";
 
 const customStyles = {
     content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
+        top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)',
     },
 };
 
@@ -17,10 +14,13 @@ const GraphEncryptionPage = () => {
     const [uploadedGraphUrl, setUploadedGraphUrl] = useState();
     const [encryptedGraphUrl, setEncryptedGraphUrl] = useState();
     const [modalIsOpen, setIsOpen] = useState(false);
+    const fileUploadInputRef = useRef();
     const messageInputRef = useRef();
     const passwordInputRef = useRef();
 
-    const encryptSubmit = (e) => {
+    const userToken = localStorage.getItem("token");
+
+    const encryptSubmit = async (e) => {
 
         e.preventDefault();
 
@@ -28,20 +28,34 @@ const GraphEncryptionPage = () => {
         const password = passwordInputRef.current.value;
 
         // 传给后端处理
-        console.log({
-            message: message,
-            password: password,
-        });
+        try {
+            const {data} = await getEncryptedGraph(
+                uploadedGraphUrl,
+                message,
+                password,
+                userToken);
+            setEncryptedGraphUrl(data.encrypted_image_url);
+        } catch (e) {
+            console.error(e);
+        }
 
         setIsOpen(false);
-
-        setEncryptedGraphUrl('https://images.unsplash.com/photo-1657804023799-3fa26a120cc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80')
     }
 
-    const uploadGraphFile = (e) => {
+    const uploadGraphFile = async (e) => {
         e.preventDefault();
-        //传给后端文件
-        setUploadedGraphUrl(`https://images.unsplash.com/photo-1657998623411-15c39b03080a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80`)
+
+        try {
+            const file = fileUploadInputRef.current.files[0];
+
+            const formData = new FormData();
+            formData.append("image", file);
+            const {data} = await uploadImageToImgur(formData);
+
+            setUploadedGraphUrl(data.link);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     const afterOpenModal = () => {
@@ -49,24 +63,22 @@ const GraphEncryptionPage = () => {
     }
     return <div
         className={styles.home}>
-        <div className = {styles.title}>
+        <div className={styles.title}>
             <h1>Graph Encryption</h1>
         </div>
         <div className={styles.pictures_container}>
             <div className={styles.picture_item}>
                 <h3>Original Picture</h3>
                 <div className={styles.picture_wrapper}>
-                    {uploadedGraphUrl &&
-                    <img
+                    {uploadedGraphUrl && <img
                         src={uploadedGraphUrl}
-                        alt={`uploaded graph`}/> }
+                        alt={`uploaded graph`}/>}
                 </div>
             </div>
             <div className={styles.picture_item}>
                 <h3>Encrypted Picture</h3>
                 <div className={styles.picture_wrapper}>
-                    {encryptedGraphUrl &&
-                    <img
+                    {encryptedGraphUrl && <img
                         src={encryptedGraphUrl}
                         alt={`encrypted graph`}/>}
                 </div>
@@ -75,19 +87,25 @@ const GraphEncryptionPage = () => {
         <div className={styles.buttons_wrapper}>
             <div>
                 <form onSubmit={uploadGraphFile}>
-                    <input id={`graph_file`} type={`file`} name={`graph_file`}/>
+                    <input
+                        id={`graph_file`}
+                        type={`file`}
+                        name={`graph_file`}
+                        ref={fileUploadInputRef}/>
                     <button type={`submit`}
                         // className={`btn btn-primary btn-sm`}
                             className={styles.button_test}
                     >
-                        Upload</button>
+                        Upload
+                    </button>
                 </form>
             </div>
             <div>
                 <button
                     onClick={setIsOpen.bind(null, true)}
                     className={styles.button_test}
-                >Encrypt</button>
+                >Encrypt
+                </button>
             </div>
             <div>
                 <button className={styles.button_test}>Download</button>

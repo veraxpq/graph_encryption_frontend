@@ -30,3 +30,10 @@ li {
     font-color: black;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
+
+.content {
+    position: fixed;
+    top: 60px;
+    left: 180px;
+    width: calc(100vw - 180px);
+}
