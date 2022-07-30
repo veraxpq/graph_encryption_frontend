@@ -21,6 +21,7 @@ const GraphEncryptionPage = () => {
     const passwordInputRef = useRef();
 
     const encryptSubmit = (e) => {
+
         e.preventDefault();
 
         const message = messageInputRef.current.value;
@@ -46,8 +47,9 @@ const GraphEncryptionPage = () => {
     const afterOpenModal = () => {
         console.log('opened');
     }
-    return <div>
-        <div>
+    return <div
+        className={styles.home}>
+        <div className = {styles.title}>
             <h1>Graph Encryption</h1>
         </div>
         <div className={styles.pictures_container}>
@@ -57,15 +59,15 @@ const GraphEncryptionPage = () => {
                     {uploadedGraphUrl &&
                     <img
                         src={uploadedGraphUrl}
-                    alt={`uploaded graph`}/> }
+                        alt={`uploaded graph`}/> }
                 </div>
             </div>
             <div className={styles.picture_item}>
                 <h3>Encrypted Picture</h3>
                 <div className={styles.picture_wrapper}>
                     {encryptedGraphUrl &&
-                        <img
-                            src={encryptedGraphUrl}
+                    <img
+                        src={encryptedGraphUrl}
                         alt={`encrypted graph`}/>}
                 </div>
             </div>
@@ -74,16 +76,21 @@ const GraphEncryptionPage = () => {
             <div>
                 <form onSubmit={uploadGraphFile}>
                     <input id={`graph_file`} type={`file`} name={`graph_file`}/>
-                    <button type={`submit`} className={`btn btn-primary btn-sm`}>Upload</button>
+                    <button type={`submit`}
+                        // className={`btn btn-primary btn-sm`}
+                            className={styles.button_test}
+                    >
+                        Upload</button>
                 </form>
             </div>
             <div>
                 <button
                     onClick={setIsOpen.bind(null, true)}
-                className={`btn btn-primary btn-sm`}>Encrypt</button>
+                    className={styles.button_test}
+                >Encrypt</button>
             </div>
             <div>
-                <button>Download</button>
+                <button className={styles.button_test}>Download</button>
             </div>
         </div>
         <div className={styles.output_wrapper}>
@@ -100,7 +107,7 @@ const GraphEncryptionPage = () => {
             <div>
                 <form
                     onSubmit={encryptSubmit}
-                className={styles.encrypt_form}>
+                    className={styles.encrypt_form}>
                     <div>
                         <div>
                             <label htmlFor="{`message`}">Message</label>

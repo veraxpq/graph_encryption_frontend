@@ -45,7 +45,7 @@ const GraphDecryptionPage = () => {
     const afterOpenModal = () => {
         console.log('opened');
     }
-    return <div>
+    return <div  className={styles.home}>
         <div>
             <h1>Graph Decryption</h1>
         </div>
@@ -73,13 +73,13 @@ const GraphDecryptionPage = () => {
             <div>
                 <form onSubmit={uploadGraphFile}>
                     <input id={`graph_file`} type={`file`} name={`graph_file`}/>
-                    <button type={`submit`} className={`btn btn-primary btn-sm`}>Upload</button>
+                    <button type={`submit`} className={styles.button_test}>Upload</button>
                 </form>
             </div>
             <div>
                 <button
                     onClick={setIsOpen.bind(null, true)}
-                className={`btn btn-primary btn-sm`}>Decrypt</button>
+                className= {styles.button_test}>Decrypt</button>
             </div>
             <div>
                 <button>Download</button>

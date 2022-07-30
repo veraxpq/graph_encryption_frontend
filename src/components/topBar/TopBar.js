@@ -40,7 +40,7 @@ const TopBarComponent = () => {
                     Graph Encryption
                 </Link>
                 <div className="f-login-align-right">
-                    <button onClick={submit} className="btn btn-primary btn-sm">{loginCondition()}</button>
+                    <button onClick={submit} className={"navbar-login"}>{loginCondition()}</button>
                 </div>
             </div>
         </>
