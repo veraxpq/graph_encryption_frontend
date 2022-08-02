@@ -37,10 +37,17 @@ export const updateCurrentPersonalProfile = async (dispatch, PersonalProfile, to
 }
 
 export const loginWithCredential = async (email, password) => {
-    const response = await fetch(`${LOGIN_API}`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, password})
-    });
-    return await response.json();
+    try {
+        const response = await fetch(`${LOGIN_API}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email, password})
+        });
+        return await response.json();
+    } catch (e) {
+        console.log('log in error ', e);
+    }
+
 }

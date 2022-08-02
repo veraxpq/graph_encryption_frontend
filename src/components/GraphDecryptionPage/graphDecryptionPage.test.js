@@ -3,7 +3,7 @@ import React from 'react'
 //the following are helper/utility methods from @testing-lirary/react
 import {fireEvent, render, screen, within} from '@testing-library/react'
 //since GraphDescriptionPage is default export, the name can be anything
-//using same name to be consistant
+//using same name to be consistent
 import GraphDecriptionPage from './index'
 
 // IT is one TEST CASE

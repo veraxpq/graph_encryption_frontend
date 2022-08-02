@@ -1,17 +1,18 @@
 const GRAPH_API = 'http://localhost:18081/en-graph';
 
-export const getEncryptedGraph = async (graphUrl, message, password, token) => {
+export const getEncryptedGraph = async (userId, graphUrl, message, password, token) => {
     const response = await fetch(`${GRAPH_API}/encrypt`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
             'Authorization': token,
         },
-        body: {
-            url: graphUrl,
-            password: password,
+        body: JSON.stringify({
+            userId: userId,
+            originalImageUrl: graphUrl,
             message: message,
-        }
+            password: password,
+        })
     });
 
     return await response.json();
@@ -24,10 +25,10 @@ export const getDecryptedGraph = async (graphUrl, password, token) => {
             'content-type': 'application/json',
             'Authorization': token,
         },
-        body: {
+        body: JSON.stringify({
             url: graphUrl,
             password: password,
-        }
+        })
     });
 
     return await response.json();
@@ -41,6 +42,7 @@ export const fetchAllImages = async (dispatch, userId, token) => {
                 'Authorization': token,
             },
         })
+    console.log(response);
 
     const respJson = await response.json();
     dispatch({

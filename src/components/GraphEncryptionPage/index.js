@@ -3,6 +3,7 @@ import {useRef, useState} from "react";
 import Modal from 'react-modal';
 import {uploadImageToImgur} from "../../services/imageUpload";
 import {getEncryptedGraph} from "../../services/graphService";
+import {useSelector} from "react-redux";
 
 const customStyles = {
     content: {
@@ -13,6 +14,7 @@ const customStyles = {
 const GraphEncryptionPage = () => {
     const [uploadedGraphUrl, setUploadedGraphUrl] = useState();
     const [encryptedGraphUrl, setEncryptedGraphUrl] = useState();
+    const [handling, setHandling] = useState(false);
     const [modalIsOpen, setIsOpen] = useState(false);
     const fileUploadInputRef = useRef();
     const messageInputRef = useRef();
@@ -20,9 +22,13 @@ const GraphEncryptionPage = () => {
 
     const userToken = localStorage.getItem("token");
 
+    const {data} = useSelector(state => state.personalProfile);
+    const userId = data.userId;
+
     const encryptSubmit = async (e) => {
 
         e.preventDefault();
+        setHandling(true);
 
         const message = messageInputRef.current.value;
         const password = passwordInputRef.current.value;
@@ -30,6 +36,7 @@ const GraphEncryptionPage = () => {
         // 传给后端处理
         try {
             const {data} = await getEncryptedGraph(
+                userId,
                 uploadedGraphUrl,
                 message,
                 password,
@@ -39,11 +46,14 @@ const GraphEncryptionPage = () => {
             console.error(e);
         }
 
+        setHandling(false);
         setIsOpen(false);
     }
 
     const uploadGraphFile = async (e) => {
         e.preventDefault();
+        setHandling(true);
+        setIsOpen(true);
 
         try {
             const file = fileUploadInputRef.current.files[0];
@@ -53,9 +63,13 @@ const GraphEncryptionPage = () => {
             const {data} = await uploadImageToImgur(formData);
 
             setUploadedGraphUrl(data.link);
+
         } catch (e) {
             console.error(e);
         }
+
+        setHandling(false);
+        setIsOpen(false);
     }
 
     const afterOpenModal = () => {
@@ -108,7 +122,9 @@ const GraphEncryptionPage = () => {
                 </button>
             </div>
             <div>
-                <button className={styles.button_test}>Download</button>
+                <a href={encryptedGraphUrl}
+                   target={`_blank`}
+                   className={styles.button_test}>Download</a>
             </div>
         </div>
         <div className={styles.output_wrapper}>
@@ -123,23 +139,26 @@ const GraphEncryptionPage = () => {
             style={customStyles}
         >
             <div>
-                <form
-                    onSubmit={encryptSubmit}
-                    className={styles.encrypt_form}>
-                    <div>
+                {handling ?
+                    `handling...`
+                    :
+                    <form
+                        onSubmit={encryptSubmit}
+                        className={styles.encrypt_form}>
                         <div>
-                            <label htmlFor="{`message`}">Message</label>
+                            <div>
+                                <label htmlFor="{`message`}">Message</label>
+                            </div>
+                            <input id={`message`} type="text" ref={messageInputRef}/>
                         </div>
-                        <input id={`message`} type="text" ref={messageInputRef}/>
-                    </div>
-                    <div>
                         <div>
-                            <label htmlFor="{`password`}">password</label>
+                            <div>
+                                <label htmlFor="{`password`}">password</label>
+                            </div>
+                            <input id={`password`} type="text" ref={passwordInputRef}/>
                         </div>
-                        <input id={`password`} type="text" ref={passwordInputRef}/>
-                    </div>
-                    <button type={`submit`}>Encrypt</button>
-                </form>
+                        <button type={`submit`}>Encrypt</button>
+                    </form>}
             </div>
         </Modal>
 

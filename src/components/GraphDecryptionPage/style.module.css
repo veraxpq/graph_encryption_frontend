@@ -30,9 +30,6 @@
     padding: 0 15px;
 }
 
-.buttons_wrapper > *:last-child {
-    margin-left: auto;
-}
 
 .output_wrapper {
     margin: 10px 0;
@@ -50,6 +47,7 @@
 .encrypt_form {
     padding: 0 10px;
 }
+
 .button_test {
     color: black;
     border: none;
@@ -76,6 +74,7 @@
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     padding-top: 20px;
 }
+
 .home {
     background-color: #f4fafa;
     height: 100%;

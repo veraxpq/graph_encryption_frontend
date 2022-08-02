@@ -16,36 +16,43 @@ const customStyles = {
 };
 
 const GraphDecryptionPage = () => {
-    const [uploadedGraphUrl, setUploadedGraphUrl] = useState();
+    const [handling, setHandling] = useState(false);
     const [encryptedGraphUrl, setEncryptedGraphUrl] = useState();
     const [message, setMessage] = useState();
     const [modalIsOpen, setIsOpen] = useState(false);
     const fileUploadInputRef = useRef();
     const passwordInputRef = useRef();
-    const imageIdInputRef = useRef();
 
     const userToken = localStorage.getItem("token");
 
     const decryptSubmit = async (e) => {
         e.preventDefault();
+        setHandling(true);
 
         const password = passwordInputRef.current.value;
 
         // 传给后端处理
-        const {data} = await getDecryptedGraph(
-            encryptedGraphUrl,
-            password,
-            userToken);
+        try {
+            const {data} = await getDecryptedGraph(
+                encryptedGraphUrl,
+                password,
+                userToken);
+
+            const message = data.message;
+            setMessage(message);
+        } catch (e) {
+            console.error(e);
+            alert('Error occurs when decrypting image!')
+        }
+
+        setHandling(false);
         setIsOpen(false);
-
-        const message = data.message;
-
-        // setUploadedGraphUrl('https://images.unsplash.com/photo-1657804023799-3fa26a120cc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80')
-        setMessage(message);
     }
 
     const uploadGraphFile = async (e) => {
         e.preventDefault();
+        setHandling(true);
+        setIsOpen(true);
         //传给后端文件
         try {
             const file = fileUploadInputRef.current.files[0];
@@ -58,6 +65,9 @@ const GraphDecryptionPage = () => {
         } catch (e) {
             console.error(e);
         }
+
+        setHandling(false);
+        setIsOpen(false);
     }
 
     const afterOpenModal = () => {
@@ -78,12 +88,10 @@ const GraphDecryptionPage = () => {
                 </div>
             </div>
             <div className={styles.picture_item}>
-                <h3>Original Picture</h3>
+                <h3>Message</h3>
                 <div className={styles.picture_wrapper}>
-                    {uploadedGraphUrl &&
-                        <img
-                            src={uploadedGraphUrl}
-                            alt={`uploaded graph`}/>}
+                    {message &&
+                        <h3>{message}</h3>}
                 </div>
             </div>
         </div>
@@ -105,18 +113,7 @@ const GraphDecryptionPage = () => {
                     className={styles.button_test}>Decrypt
                 </button>
             </div>
-            <div>
-                <button>Download</button>
-            </div>
         </div>
-        <div className={styles.output_wrapper}>
-            <span>Output directory</span>
-            <div className={styles.output_result}>&nbsp;</div>
-        </div>
-        {message &&
-            <div>
-                <p>{message}</p>
-            </div>}
         <Modal
             isOpen={modalIsOpen}
             onAfterOpen={afterOpenModal}
@@ -125,17 +122,19 @@ const GraphDecryptionPage = () => {
             style={customStyles}
         >
             <div>
-                <form
-                    onSubmit={decryptSubmit}
-                    className={styles.encrypt_form}>
-                    <div>
+                {handling ?
+                    `handling...`
+                    : <form
+                        onSubmit={decryptSubmit}
+                        className={styles.encrypt_form}>
                         <div>
-                            <label htmlFor="{`password`}">password</label>
+                            <div>
+                                <label htmlFor="{`password`}">password</label>
+                            </div>
+                            <input id={`password`} type="text" ref={passwordInputRef}/>
                         </div>
-                        <input id={`password`} type="text" ref={passwordInputRef}/>
-                    </div>
-                    <button type={`submit`}>Decrypt</button>
-                </form>
+                        <button type={`submit`}>Decrypt</button>
+                    </form>}
             </div>
         </Modal>
 

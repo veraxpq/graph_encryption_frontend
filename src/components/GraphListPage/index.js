@@ -21,8 +21,8 @@ const GraphListPage = () => {
             <thead>
             <tr>
                 <td>Date</td>
-                <td>Origin Url</td>
-                <td>Encrypted Url</td>
+                <td colSpan={2}>Origin Url</td>
+                <td colSpan={2}>Encrypted Url</td>
                 <td></td>
             </tr>
             </thead>
@@ -31,9 +31,15 @@ const GraphListPage = () => {
                 <tr key={index}>
                     <td>{graph.date}</td>
                     <td>{graph.originalImageUrl}</td>
-                    <td>{graph.encryptedImageUrl}</td>
                     <td>
-                        <button>download</button>
+                        <a href={graph.originalImageUrl}
+                           target={`_blank`}>Download</a>
+                    </td>
+                    <td>{graph.encryptedImageUrl}</td>
+
+                    <td>
+                        <a href={graph.encryptedImageUrl}
+                           target={`_blank`}>Download</a>
                     </td>
                 </tr>
             ))}

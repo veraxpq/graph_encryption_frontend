@@ -8,7 +8,7 @@ const LoginComponent = () => {
 
     const navigate = useNavigate();
 
-    const loginClickHandler = async (e: SyntheticEvent) => {
+    const loginClickHandler = async (e) => {
         e.preventDefault();
         try {
             const user = await loginWithCredential(email, password);
