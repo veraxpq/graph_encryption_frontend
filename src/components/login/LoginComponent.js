@@ -10,6 +10,7 @@ const LoginComponent = () => {
 
     const loginClickHandler = async (e) => {
         e.preventDefault();
+        console.log('@tom testing')
         try {
             const user = await loginWithCredential(email, password);
             if (user.status === 0) {
