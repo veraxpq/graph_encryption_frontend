@@ -23,7 +23,7 @@ const GraphEncryptionPage = () => {
     const userToken = localStorage.getItem("token");
 
     const {data} = useSelector(state => state.personalProfile);
-    const userId = data.userId;
+    const userId = localStorage.getItem("userId");
 
     const encryptSubmit = async (e) => {
 
